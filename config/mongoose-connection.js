@@ -10,6 +10,5 @@ mongoose.connect(`${config.get("MONGODB_URI")}/scatch`)
     dbgr(err);
 })
 
-
 module.exports = mongoose.connection;
 

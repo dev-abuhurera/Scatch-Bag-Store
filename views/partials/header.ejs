@@ -2,23 +2,67 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Scatch - BagStore</title>
+    <link rel="icon" type="image/svg+xml" href="/images/scatch_favicon.svg">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/fonts/Roboto/stylesheet.css">
+    <link rel="stylesheet" href="/stylesheets/output.css">
+
 </head>
 
-<body class="font-['helvetica_now_display']">
-    <nav class="w-full flex justify-between px-5 py-3">
-        <h3 class="text-xl">Scatch</h3>
+<body class="font-['Roboto']">
+
+    <nav class="w-full flex justify-between px-8 py-6">
+
+        <a href="/" class="flex items-center gap-2">
+            <img src="/images/scatch_favicon.svg" alt="Scatch Logo" class="h-8 w-auto">
+            <span class="text-xl">Scatch - Bags and Beyond</span>
+        </a>
+
+        <!-- Admin Login Button - Only on home page when NOT logged in -->
+        <% var isHomePage = typeof isHomePage !== 'undefined' ? isHomePage : false %>
         <% var loggedin = typeof loggedin !== 'undefined' ? loggedin : true %>
+        <% var isAdmin = typeof isAdmin !== 'undefined' ? isAdmin : false %>
+
+        <% if(isHomePage && !loggedin){ %>
+            <a href="/owners/login" 
+               class="px-4 py-2 bg-zinc-800 text-white rounded-md hover:bg-zinc-700 transition-colors flex items-center gap-2">
+                <i class="ri-admin-line"></i>
+                Admin Login
+            </a>
+        <% } %>
+
         <% if(loggedin)  {%>
-            <div class="flex gap-5">
+            <div class="flex gap-8 items-center">
+                
+                <!-- Show Admin Badge if logged in as admin -->
+                <% if(isAdmin) {%>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                        <i class="ri-shield-star-line"></i> Admin
+                    </span>
+                <% }%>
+                
                 <a href="/shop">Shop</a>
-                <a href="/cart">Cart</a>
+                
+                <!-- Cart link - different for admin -->
+                <% if(isAdmin) {%>
+                    <a href="/cart" class="flex items-center gap-1">
+                        Cart <span class="text-xs text-gray-500">(View Only)</span>
+                    </a>
+                <% } else { %>
+                    <a href="/cart">Cart</a>
+                <% }%>
+                
+                <a href="/orders">Orders</a>
                 <a href="/account">My Account</a>
-                <a class="text-red-600" href="users/logout">Logout</a>
+                <a class="text-red-600" href="/users/logout">Logout</a>
             </div>
         <% }%>
+
     </nav>
+    <div class="flex justify-center">
+        <div class="w-full border-t border-zinc-200"></div>
+    </div>
