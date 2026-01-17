@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 require("dotenv").config();
 const db = require("./config/mongoose-connection");
-
+const swal = require('sweetalert');
 
 
 const ownersRouter = require("./routes/ownersRouter");
@@ -14,6 +14,7 @@ const usersRouter = require("./routes/usersRouter");
 const productsRouter = require("./routes/productsRouter");
 const indexRouter = require("./routes/index");
 const orderRouter = require("./routes/orderRouter");
+const accountRouter = require("./routes/accountRouter");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -33,6 +34,7 @@ app.use("/",indexRouter);
 app.use("/owners", ownersRouter);
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
+app.use("/account", accountRouter);
 app.use("/", orderRouter);
 
 app.listen(3000);

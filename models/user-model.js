@@ -22,8 +22,22 @@ const userSchema = new mongoose.Schema({
     },
   ],
 
-  contact: Number, // we will add this later
-  picture: String, // will add this later
+  contact: String, // we will add this later
+  picture: {
+
+    type: String,
+    default: ""
+
+  }, // will add this later
+
+  address: {
+
+    street: { type: String , default: "" },
+    city: { type: String, default: "" },
+    state: { type: String, default: "" },
+    country: { type: String, default: "" }
+
+  }
 
 });
 
