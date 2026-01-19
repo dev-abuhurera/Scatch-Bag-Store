@@ -1,128 +1,168 @@
 <%- include('./partials/header') %>
 
 <% if(success && success.length > 0) { %>
-    <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-green-500 z-50">
-        <span class="inline-block mt-1 mb-1 text-white"><%= success %></span>
+    <div class="fixed top-5 left-1/2 -translate-x-1/2 p-4 rounded-lg bg-green-500 z-50 shadow-lg">
+        <span class="inline-block text-white font-medium"><%= success %></span>
     </div>
 <% } %>
 
 <% if(error && error.length > 0) { %>
-    <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-red-500 z-50">
-        <span class="inline-block mt-1 mb-1 text-white"><%= error %></span>
+    <div class="fixed top-5 left-1/2 -translate-x-1/2 p-4 rounded-lg bg-red-500 z-50 shadow-lg">
+        <span class="inline-block text-white font-medium"><%= error %></span>
     </div>
 <% } %>
 
+<div class="md:text-5xl text-3xl md:px-10 px-5 mt-8 mb-2">Cart</div>
+
 <% if(cartWithQuantities && cartWithQuantities.length > 0) { %>
     
-    <!-- Show all cart items -->
-    <div class="w-full min-h-screen px-20 py-10">
-        <div class="space-y-6 mb-10">
+    <div class="container mx-auto px-4 md:px-8 py-4 mb-10">
+        
+        <div class="flex flex-col lg:flex-row gap-4 md:gap-6">
             
-            <% cartWithQuantities.forEach(function (item) { %>
+            <!-- Cart Items Section -->
+            <div class="flex-1 space-y-3 md:space-y-4">
+                
+                <% cartWithQuantities.forEach(function (item) { %>
 
-                <div class="w-full flex items-start gap-10 border-2 rounded-lg p-6">
-                    <div class="w-[30%] rounded-md overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
 
-                        <div class="w-full h-80 flex items-center justify-center style=" style= "background-color: <%= item.bgcolor %>;">
-                            <img class="h-full w-full object-contain" src="data:image/jpeg;base64, <%= item.image.toString('base64')%>" alt="">
-                        </div>
-                        <div class="w-full flex justify-between px-5 py-4" style="background-color: <%= item.panelcolor %>;">
-                            <h3 class="text-2xl"><%= item.name %></h3>
-                            <div class="flex items-center gap-2">
-                                <!-- Add button -->
+                        <div class="flex flex-col md:flex-row">
 
-                                <form action="/cart/add/<%= item._id %>" method="POST" class="inline">
-                                    <button type="submit" class="w-7 h-7 bg-white flex rounded-full items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer">
+                            <!-- Product Image & Info -->
+                            <div class="md:w-48 w-full flex-shrink-0">
+
+                                <div class="w-full h-40 md:h-48 flex items-center justify-center p-3" style="background-color: <%= item.bgcolor %>;">
+                                    <img class="h-full w-full object-contain" src="data:image/jpeg;base64, <%= item.image.toString('base64')%>" alt="<%= item.name %>">
+                                </div>
+
+                                <div class="w-full px-3 py-2" style="background-color: <%= item.panelcolor %>; color: <%= item.textcolor %>;">
+                                    <h3 class="text-base md:text-lg font-semibold mb-1 truncate"><%= item.name %></h3>
+                                    <p class="text-xs md:text-sm opacity-80">₹<%= Number(item.price) - Number(item.discount || 0) %> each</p>
+                                </div>
+
+                            </div>
+
+                            <!-- Product Details -->
+                            <div class="flex-1 p-3 md:p-4">
+
+                                <div class="flex flex-col h-full justify-between">
+
+                                    <!-- Price Breakdown -->
+                                    <div class="mb-3">
+                                        <h4 class="text-base md:text-lg font-semibold mb-2 text-gray-800">Price Details</h4>
                                         
-                                        <i class="ri-add-line"></i>
+                                        <div class="space-y-1.5 text-sm">
+                                            <div class="flex justify-between text-gray-600">
+                                                <span>MRP</span>
+                                                <span>₹ <%= item.price %></span>
+                                            </div>
+                                            <% if(item.discount && item.discount > 0) { %>
+                                                <div class="flex justify-between text-green-600">
+                                                    <span>Discount</span>
+                                                    <span>- ₹ <%= Number(item.discount) %></span>
+                                                </div>
+                                            <% } %>
+                                            <div class="flex justify-between text-gray-600">
+                                                <span>Quantity</span>
+                                                <span>× <%= item.quantity %></span>
+                                            </div>
+                                            <div class="border-t pt-1.5 mt-1.5"></div>
+                                            <div class="flex justify-between text-base md:text-lg font-bold text-gray-900">
+                                                <span>Item Total</span>
+                                                <span>₹ <%= (Number(item.price) - Number(item.discount || 0)) * item.quantity %></span>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                    </button>
-                                </form>
+                                    <!-- Quantity Controls -->
+                                    <div class="flex items-center justify-between pt-3 border-t">
+                                        <span class="text-xs md:text-sm font-medium text-gray-600">Quantity</span>
+                                        <div class="flex items-center gap-2 bg-gray-100 rounded-full px-1.5 py-1">
+                                            <!-- Remove button -->
+                                            <form action="/cart/remove/<%= item._id %>" method="POST" class="inline">
+                                                <button type="submit" class="w-7 h-7 bg-white flex rounded-full items-center justify-center hover:bg-gray-200 transition-colors shadow-sm">
+                                                    <i class="ri-subtract-line text-gray-700 text-sm"></i>
+                                                </button>
+                                            </form>
 
-                                <!-- Quantity -->
-                                <div class="px-2 py-1 rounded-md bg-white text-black"><%= item.quantity %></div>
-                                <!-- Remove button -->
-                                <form action="/cart/remove/<%= item._id %>" method="POST" class="inline">
-                                    <button type="submit" class="w-7 h-7 bg-white flex rounded-full items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer">
-                                        <i class="ri-subtract-line"></i>
-                                    </button>
-                                </form>
+                                            <!-- Quantity Display -->
+                                            <div class="px-3 py-0.5 font-semibold text-gray-800 min-w-[1.5rem] text-center text-sm"><%= item.quantity %></div>
+
+                                            <!-- Add button -->
+                                            <form action="/cart/add/<%= item._id %>" method="POST" class="inline">
+                                                <button type="submit" class="w-7 h-7 bg-white flex rounded-full items-center justify-center hover:bg-gray-200 transition-colors shadow-sm">
+                                                    <i class="ri-add-line text-gray-700 text-sm"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
+
                             </div>
-                        </div>
 
-                        <div class="text-white flex items-center justify-between px-5 py-3 bg-[<%= item.textcolor %>]">
-                            <h4 class="text-lg">Item Price</h4>
-                            <h2 class="text-lg">₹ <%= Number(item.price) - Number(item.discount || 0) %></h2>
                         </div>
-
                     </div>
-                    <div class="w-[70%]">
-                        <h3 class="text-xl mb-4">Price Breakdown</h3>
-                        <div class="px-10 mt-5">
-                            <div class="flex mt-2">
-                                <h4 class="w-1/3">Item MRP</h4>
-                                <h4>₹ <%= item.price %></h4>
-                            </div>
-                            <div class="flex mt-2">
-                                <h4 class="w-1/3">Discount</h4>
-                                <h4>₹ <%= Number(item.discount || 0) %></h4>
-                            </div>
-                            <div class="flex mt-2">
-                                <h4 class="w-1/3">Quantity</h4>
-                                <h4><%= item.quantity %></h4>
-                            </div>
-                            <div class="flex mt-2">
-                                <h4 class="w-1/3">Item Total</h4>
-                                <h4 class="font-semibold">₹ <%= (Number(item.price) - Number(item.discount || 0)) * item.quantity %></h4>
-                            </div>
+                <% }) %>
+            </div>
+
+            <!-- Order Summary Sidebar -->
+            <div class="lg:w-80 w-full">
+                <div class="bg-white rounded-xl shadow-md border border-gray-200 p-4 md:p-5 lg:sticky lg:top-8">
+                    
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 text-gray-800">Order Summary</h3>
+                    
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between text-sm text-gray-600">
+                            <span>Subtotal (<%= cartWithQuantities.reduce((sum, item) => sum + item.quantity, 0) %> items)</span>
+                            <span class="font-medium">₹ <%= cartWithQuantities.reduce((total, item) => total + (Number(item.price) - Number(item.discount || 0)) * item.quantity, 0) %></span>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-600">
+                            <span>Platform Fee</span>
+                            <span class="font-medium">₹ 20</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-600">
+                            <span>Shipping</span>
+                            <span class="font-medium text-green-600">FREE</span>
                         </div>
                     </div>
+
+                    <div class="border-t border-gray-300 pt-3 mb-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-gray-800">Total</span>
+                            <span class="text-xl md:text-2xl font-bold text-green-600">₹ <%= bill %></span>
+                        </div>
+                    </div>
+
+                    <form action="/placeorder" method="post">
+                        <button class="w-full py-3 bg-blue-600 text-white rounded-xl font-semibold text-base hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg" type="submit">
+                            Place Order
+                        </button>
+                    </form>
+
+                    <a href="/shop" class="block text-center mt-3 text-sm text-blue-600 hover:text-blue-700 font-medium">
+                        <i class="ri-arrow-left-line mr-1"></i>Continue Shopping
+                    </a>
+
                 </div>
-            <% }) %>
-        </div>
-
-        <div class="w-full border-t-2 border-gray-300 pt-6">
-            
-            <div class="max-w-2xl ml-auto">
-                <h3 class="text-2xl mb-4">Order Summary</h3>
-                <div class="space-y-3">
-                    <div class="flex justify-between">
-                        <h4>Subtotal (<%= cartWithQuantities.reduce((sum, item) => sum + item.quantity, 0) %> items)</h4>
-                        <h4>₹ <%= cartWithQuantities.reduce((total, item) => total + (Number(item.price) - Number(item.discount || 0)) * item.quantity, 0) %></h4>
-                    </div>
-                    <div class="flex justify-between">
-                        <h4>Platform Fee</h4>
-                        <h4>₹ 20</h4>
-                    </div>
-                    <div class="flex justify-between">
-                        <h4>Shipping Fee</h4>
-                        <h4>FREE</h4>
-                    </div>
-                    <div class="w-full h-[1px] bg-black mt-4"></div>
-                    <div class="flex justify-between mt-4">
-                        <h3 class="text-xl font-semibold">Total Amount</h3>
-                        <h3 class="font-semibold text-xl text-green-600">₹ <%= bill %></h3>
-                    </div>
-                </div>
-
-                <form action="/placeorder" method="post" class="mt-6">
-                    <button class="w-full px-5 rounded-full py-3 bg-blue-500 text-white hover:bg-blue-600 transition-colors" type="submit">
-                        Place Order
-                    </button>
-                </form>
-
             </div>
 
         </div>
     </div>
+
 <% } else { %>
 
-    <div class="w-full h-screen flex items-center justify-center">
-        <div class="text-center">
-            <h2 class="text-3xl font-semibold mb-4">Your cart is empty</h2>
-            <p class="text-gray-600 mb-6">Nothing in the cart yet</p>
-            <a href="/shop" class="px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
-                Continue Shopping
+    <!-- Empty Cart State -->
+    <div class="w-full min-h-[60vh] flex items-center justify-center px-4">
+        <div class="text-center max-w-md">
+            <div class="w-32 h-32 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
+                <i class="ri-shopping-cart-line text-6xl text-gray-400"></i>
+            </div>
+            <h2 class="text-3xl font-bold mb-3 text-gray-800">Your cart is empty</h2>
+            <p class="text-gray-600 mb-8 text-lg">Looks like you haven't added anything to your cart yet</p>
+            <a href="/shop" class="inline-block px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg">
+                Start Shopping
             </a>
         </div>
     </div>

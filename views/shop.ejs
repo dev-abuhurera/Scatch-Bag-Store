@@ -1,90 +1,103 @@
 <%- include('./partials/header') %>
 
 <% if(success && success.length > 0) { %>
-    <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500 z-50">
-        <span class="inline-block mt-1 mb-1 text-white"> <%= success %> </span>
+    <div class="fixed top-5 left-1/2 -translate-x-1/2 p-4 rounded-lg bg-blue-500 z-50 shadow-lg">
+        <span class="inline-block text-white font-medium"><%= success %></span>
     </div>
 <% } %>
 
 <% if(error && error.length > 0) { %>
-    <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-red-500 z-50">
-        <span class="inline-block mt-1 mb-1 text-white"> <%= error %> </span>
+    <div class="fixed top-5 left-1/2 -translate-x-1/2 p-4 rounded-lg bg-red-500 z-50 shadow-lg">
+        <span class="inline-block text-white font-medium"><%= error %></span>
     </div>
 <% } %>
 
-<!-- Main Shop Section -->
-<div class="mx-auto md:px-8 px-4 py-12 mt-6">
+<!-- Page Header -->
+<div class="container mx-auto">
+    <div class="md:text-5xl text-3xl md:px-10 px-5 mt-8 mb-2">Shop</div>
+    <div class="md:px-10 px-5 text-gray-600 text-sm md:text-base mb-6">
+        Discover our latest collection of products
+    </div>
+</div>
 
-    <div class="flex lg:flex-row flex-col gap-8">
+<!-- Main Shop Section -->
+<div class="container mx-auto md:px-8 px-4 pb-12">
+
+    <div class="flex flex-row gap-4 md:gap-8">
         
         <!-- Sidebar Filter -->
-        <div class="lg:w-72 w-full flex-shrink-0 ">
+        <div class="w-1/3 md:w-80 flex-shrink-0">
 
-            <div class="bg-white rounded-2xl shadow-lg p-6 lg:sticky lg:top-8">
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-3 md:p-6 lg:sticky lg:top-8">
                 
                 <!-- Sort Section -->
-                <div class="mb-8">
-                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="ri-sort-desc"></i>
-                        Sort By
+                <div class="mb-4 md:mb-6">
+                    <h3 class="text-sm md:text-lg  text-gray-800 mb-3 md:mb-4 flex items-center gap-1 md:gap-2">
+                        <i class="ri-sort-desc text-base md:text-lg text-blue-600"></i>
+                        <span class="hidden md:inline">Sort By</span>
+                        <span class="md:hidden text-xs">Sort</span>
                     </h3>
+                    
                     <form action="/shop" method="GET" onchange="this.submit()">
                         <select name="sortby" 
-                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all cursor-pointer bg-gray-50 hover:bg-white">
-                            <option value="popular">Most Popular</option>
-                            <option value="newest">Newest First</option>
-                            <option value="price-low">Price: Low to High</option>
-                            <option value="price-high">Price: High to Low</option>
+                                class="w-full px-2 md:px-4 py-2 md:py-3 text-xs md:text-base border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all cursor-pointer bg-gray-50 hover:bg-white font-medium">
+                            <option value="popular">Popular</option>
+                            <option value="newest">Newest</option>
+                            <option value="price-low">Low to High</option>
+                            <option value="price-high">High to Low</option>
                         </select>
                     </form>
                 </div>
 
                 <!-- Divider -->
-                <div class="border-t border-gray-200 my-6"></div>
+                <div class="border-t border-gray-200 my-4 md:my-6"></div>
 
                 <!-- Collections Section -->
-                <div class="mb-8">
-                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="ri-shopping-bag-3-line"></i>
-                        Collections
+                <div class="mb-4 md:mb-6">
+                    <h3 class="text-sm md:text-lg font-bold text-gray-800 mb-3 md:mb-4 flex items-center gap-1 md:gap-2">
+                        <i class="ri-shopping-bag-3-line text-base md:text-lg text-blue-600"></i>
+                        <span class="hidden md:inline">Collections</span>
+                        <span class="md:hidden text-xs">Browse</span>
                     </h3>
-                    <div class="space-y-2">
+                    <div class="space-y-1 md:space-y-2">
                         <a href="/shop?collection=new" 
-                           class="block px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all text-gray-700 font-medium">
-                            <i class="ri-star-line mr-2"></i>New Collection
+                           class="block px-2 md:px-4 py-2 md:py-3 text-xs md:text-base rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-all text-gray-700 font-medium">
+                            <i class="ri-star-line mr-1 md:mr-2"></i><span class="hidden sm:inline">New Collection</span><span class="sm:hidden">New</span>
                         </a>
                         <a href="/shop" 
-                           class="block px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all text-gray-700 font-medium">
-                            <i class="ri-list-check mr-2"></i>All Products
+                           class="block px-2 md:px-4 py-2 md:py-3 text-xs md:text-base rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-all text-gray-700 font-medium">
+                            <i class="ri-list-check mr-1 md:mr-2"></i><span class="hidden sm:inline">All Products</span><span class="sm:hidden">All</span>
                         </a>
                         <a href="/shop?discounted=true" 
-                           class="block px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all text-gray-700 font-medium">
-                            <i class="ri-price-tag-3-line mr-2"></i>Discounted Products
+                           class="block px-2 md:px-4 py-2 md:py-3 text-xs md:text-base rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-all text-gray-700 font-medium">
+                            <i class="ri-price-tag-3-line mr-1 md:mr-2"></i><span class="hidden sm:inline">Discounted</span><span class="sm:hidden">Sale</span>
                         </a>
                     </div>
                 </div>
 
                 <!-- Divider -->
-                <div class="border-t border-gray-200 my-6"></div>
+                <div class="border-t border-gray-200 my-4 md:my-6"></div>
 
                 <!-- Filters Section -->
                 <div>
-                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="ri-filter-3-line"></i>
-                        Filters
+                    <h3 class="text-sm md:text-lg font-bold text-gray-800 mb-3 md:mb-4 flex items-center gap-1 md:gap-2">
+                        <i class="ri-filter-3-line text-base md:text-lg text-blue-600"></i>
+                        <span class="hidden md:inline">Filters</span>
+                        <span class="md:hidden text-xs">Filter</span>
                     </h3>
-                    <div class="space-y-3">
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500">
-                            <span class="text-gray-700 group-hover:text-blue-600 transition-colors">In Stock</span>
+                    <div class="space-y-2 md:space-y-3">
+                        <label class="flex items-center gap-2 md:gap-3 cursor-pointer group p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                            <input type="checkbox" class="w-4 h-4 md:w-5 md:h-5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer">
+                            <span class="text-xs md:text-base text-gray-700 group-hover:text-blue-600 transition-colors font-medium">In Stock</span>
                         </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500">
-                            <span class="text-gray-700 group-hover:text-blue-600 transition-colors">On Sale</span>
+                        <label class="flex items-center gap-2 md:gap-3 cursor-pointer group p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                            <input type="checkbox" class="w-4 h-4 md:w-5 md:h-5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer">
+                            <span class="text-xs md:text-base text-gray-700 group-hover:text-blue-600 transition-colors font-medium">On Sale</span>
                         </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500">
-                            <span class="text-gray-700 group-hover:text-blue-600 transition-colors">Free Shipping</span>
+                        <label class="flex items-center gap-2 md:gap-3 cursor-pointer group p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                            <input type="checkbox" class="w-4 h-4 md:w-5 md:h-5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer">
+                            <span class="text-xs md:text-base text-gray-700 group-hover:text-blue-600 transition-colors font-medium hidden md:inline">Free Shipping</span>
+                            <span class="text-xs text-gray-700 group-hover:text-blue-600 transition-colors font-medium md:hidden">Ship</span>
                         </label>
                     </div>
                 </div>
@@ -94,32 +107,43 @@
 
         <!-- Products Grid -->
         <div class="flex-1">
+
             <% if(products.length > 0) { %>
                 
-                <div class="w-full bg-white md:bg-zinc-100 p-4 md:p-6 rounded-md border-2 border-gray-200">
+                <!-- Products Count -->
+                <div class="mb-4 px-2">
+                    <p class="text-sm md:text-base text-gray-600">
+                        Showing <span class="font-semibold text-gray-800"><%= products.length %></span> products
+                    </p>
+                </div>
+
+                <div class="w-full bg-gradient-to-br from-gray-50 to-gray-100 p-3 md:p-6 rounded-2xl border border-gray-200 shadow-sm">
                     
-                    <div class="flex flex-wrap justify-center md:justify-start gap-6">
+                    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-5">
                         
                         <% products.forEach(product => { %>
-                            <div class="w-full sm:w-60 bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl hover:scale-105 transition-all duration-300 flex flex-col group">
                                 
-                                <div class="w-full flex items-center justify-center h-48 p-4" style="background-color:<%= product.bgcolor %>">
-                                    <img class="w-full h-full object-contain" 
+                                <!-- Product Image -->
+                                <div class="w-full flex items-center justify-center h-24 md:h-52 p-3 md:p-5 flex-shrink-0 relative" style="background-color:<%= product.bgcolor %>">
+                                    
+                                    <img class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300" 
                                          src="data:image/png;base64,<%= product.image.toString('base64') %>" 
                                          alt="<%= product.name %>">
                                 </div>
                                 
-                                <div class="flex justify-between items-center px-4 py-4" 
+                                <!-- Product Info -->
+                                <div class="flex justify-between items-center px-3 md:px-4 py-3 md:py-4 h-16 md:h-24 flex-shrink-0" 
                                      style="background-color: <%= product.panelcolor %>; color: <%= product.textcolor %>;">
                                     
-                                    <div>
-                                        <h3 class=" text-base mb-1"><%= product.name %></h3>
-                                        <h4 class="text-lg ">₹<%= product.price %></h4>
+                                    <div class="min-w-0 flex-1 pr-2">
+                                        <h3 class="text-xs md:text-base mb-1 truncate"><%= product.name %></h3>
+                                        <h4 class="text-sm md:text-xl ">₹<%= product.price %></h4>
                                     </div>
                                     
-                                    <a class="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-colors shadow-md flex-shrink-0" 
+                                    <a class="w-7 h-7 md:w-9 md:h-9 flex items-center justify-center rounded-full bg-white hover:bg-blue-600 transition-all duration-300 shadow-md flex-shrink-0 group/btn" 
                                        href="/addtocart/<%= product._id %>">
-                                        <i class="ri-add-line text-lg" style="color: #333;"></i>
+                                        <i class="ri-shopping-cart-line text-sm md:text-lg group-hover/btn:text-white transition-colors" style="color: #333;"></i>
                                     </a>
                                     
                                 </div>
@@ -132,18 +156,17 @@
             <% } else { %>
                 
                 <!-- Empty State -->
-                <div class="flex flex-col items-center justify-center py-24 bg-white rounded-lg">
-                    <div class="w-64 h-64 mb-8 opacity-20">
-                        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="4"/>
-                            <path d="M70 100L90 120L130 80" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                <div class="flex flex-col items-center justify-center py-16 md:py-32 bg-white rounded-2xl shadow-md border border-gray-200">
+
+                    <div class="w-32 h-32 md:w-48 md:h-48 mb-6 md:mb-8 bg-gradient-to-br from-blue-50 to-blue-100 rounded-full flex items-center justify-center">
+                        <i class="ri-shopping-bag-line text-6xl md:text-8xl text-blue-400"></i>
                     </div>
-                    <h3 class="text-3xl font-bold text-gray-800 mb-4">No Products Found</h3>
-                    <p class="text-gray-600 text-lg mb-8">We couldn't find any products matching your criteria</p>
-                    <a href="/shop" class="px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors">
-                        View All Products
+                    <h3 class="text-2xl md:text-4xl font-bold text-gray-800 mb-3 md:mb-4">No Products Found</h3>
+                    <p class="text-sm md:text-lg text-gray-600 mb-6 md:mb-10 text-center px-4 max-w-md">We couldn't find any products matching your criteria. Try adjusting your filters.</p>
+                    <a href="/shop" class="px-8 md:px-10 py-3 md:py-4 bg-blue-600 text-white text-sm md:text-base rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl">
+                        <i class="ri-refresh-line mr-2"></i>View All Products
                     </a>
+
                 </div>
 
             <% } %>
