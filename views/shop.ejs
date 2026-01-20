@@ -125,21 +125,23 @@
                             <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl hover:scale-105 transition-all duration-300 flex flex-col group">
                                 
                                 <!-- Product Image -->
-                                <div class="w-full flex items-center justify-center h-24 md:h-52 p-3 md:p-5 flex-shrink-0 relative" style="background-color:<%= product.bgcolor %>">
-                                    
-                                    <img class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300" 
-                                         src="data:image/png;base64,<%= product.image.toString('base64') %>" 
-                                         alt="<%= product.name %>">
-                                </div>
-                                
-                                <!-- Product Info -->
-                                <div class="flex justify-between items-center px-3 md:px-4 py-3 md:py-4 h-16 md:h-24 flex-shrink-0" 
-                                     style="background-color: <%= product.panelcolor %>; color: <%= product.textcolor %>;">
-                                    
-                                    <div class="min-w-0 flex-1 pr-2">
-                                        <h3 class="text-xs md:text-base mb-1 truncate"><%= product.name %></h3>
-                                        <h4 class="text-sm md:text-xl ">₹<%= product.price %></h4>
-                                    </div>
+                                <div class="w-full flex items-center justify-center h-24 md:h-52 p-3 md:p-5 flex-shrink-0 relative"
+                                style="background: linear-gradient(to right, <%= product.bgcolor.join(', ') %>)">
+                           
+                               <img class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300" 
+                                    src="<%= product.image %>" 
+                                    alt="<%= product.name %>">
+                           </div>
+                           
+                           <!-- Product Info -->
+                           <div class="flex justify-between items-center px-3 md:px-4 py-3 md:py-4 h-16 md:h-24 flex-shrink-0"
+                                style="background: linear-gradient(to right, <%= product.panelcolor.join(', ') %>); color: <%= product.textcolor[0] %>;">
+                               
+                               <div class="min-w-0 flex-1 pr-2">
+                                   <h3 class="text-xs md:text-base mb-1 truncate"><%= product.name %></h3>
+                                   <h4 class="text-sm md:text-xl">₹<%= product.price %></h4>
+                               </div>
+                         
                                     
                                     <a class="w-7 h-7 md:w-9 md:h-9 flex items-center justify-center rounded-full bg-white hover:bg-blue-600 transition-all duration-300 shadow-md flex-shrink-0 group/btn" 
                                        href="/addtocart/<%= product._id %>">

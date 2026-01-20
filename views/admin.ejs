@@ -82,17 +82,14 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 ">
                         
                         <% products.forEach(product => { %>
-                            <div class="rounded-xl overflow-hidden shadow-md" style="background-color: <%= product.panelcolor %>; color: <%= product.textcolor %>;">
+                            <div class="rounded-xl overflow-hidden shadow-md" style="background: linear-gradient(to right, <%= product.bgcolor.join(', ') %>)">
                                 <!-- Product Image -->
                                  
                                 <div class="w-full h-48 flex items-center justify-center p-4" 
-                                     style="background-color:<%= product.bgcolor %>">
-                                    
-                                     <img class="max-w-full max-h-full object-contain" 
-                                         src="data:image/png;base64,<%= product.image.toString('base64') %>" 
-                                         alt="<%= product.name %>">
-                                </div>
-                                
+                                style="background-color:<%= product.bgcolor %>">
+
+                                <img class="max-w-full max-h-full object-contain" src="<%= product.image %>" alt="<%= product.name %>">
+                           </div>
                                 <!-- Product Info -->
                                 <div class="flex justify-between items-center px-4 py-2">
                                     
