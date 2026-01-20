@@ -1,51 +1,115 @@
 {
   
   "name": "scatch",
+  
   "version": "1.0.0",
+  
   "main": "index.js",
+  
   "scripts": {
-
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "npx nodemon app.js",
-    "build": "npm run build:css:prod",
-    "build:css": "tailwindcss -i ./style.css -o ./public/stylesheets/output.css",
-    "watch:css": "tailwindcss -i ./style.css -o ./public/stylesheets/output.css --watch",
-    "build:css:prod": "tailwindcss -i ./style.css -o ./public/stylesheets/output.css --minify"
-
+  
+    
+  "test": "echo \"Error: no test specified\" && exit 1",
+  
+    
+  "start": "node app.js",
+  
+    
+  "dev": "npx nodemon app.js",
+  
+    
+  "build": "npm run build:css:prod",
+  
+    
+  "build:css": "tailwindcss -i ./style.css -o ./public/stylesheets/output.css",
+  
+    
+  "watch:css": "tailwindcss -i ./style.css -o ./public/stylesheets/output.css --watch",
+  
+    
+  "build:css:prod": "tailwindcss -i ./style.css -o ./public/stylesheets/output.css --minify"
+  
   },
-
+  
   "engines": {
-    "node":">=18.0.0"
+  
+    
+  "node": ">=18.0.0"
+  
   },
-
+  
   "keywords": [],
+  
   "author": "",
+  
   "license": "ISC",
+  
   "dependencies": {
-    "bcrypt": "^5.1.1",
-    "cloudinary": "^2.8.0",
-    "config": "^3.3.12",
-    "connect-flash": "^0.1.1",
-    "cookie-parser": "^1.4.7",
-    "debug": "^4.4.3",
-    "dotenv": "^16.6.1",
-    "ejs": "^3.1.10",
-    "express": "^4.22.1",
-    "express-session": "^1.18.2",
-    "jsonwebtoken": "^9.0.3",
-    "mongoose": "^8.20.4",
-    "multer": "^1.4.5-lts.1",
-    "autoprefixer": "^10.4.23",
-    "postcss": "^8.5.6",
-    "postcss-cli": "^11.0.1",
-    "tailwindcss": "^3.4.19"
+  
+    
+  "autoprefixer": "^10.4.23",
+  
+    
+  "bcrypt": "^6.0.0",
+  
+    
+  "cloudinary": "^2.8.0",
+  
+    
+  "config": "^3.3.12",
+  
+    
+  "connect-flash": "^0.1.1",
+  
+    
+  "cookie-parser": "^1.4.7",
+  
+    
+  "debug": "^4.4.3",
+  
+    
+  "dotenv": "^16.6.1",
+  
+    
+  "ejs": "^3.1.10",
+  
+    
+  "express": "^4.22.1",
+  
+    
+  "express-session": "^1.18.2",
+  
+    
+  "jsonwebtoken": "^9.0.3",
+  
+    
+  "mongoose": "^9.1.5",
+  
+    
+  "multer": "^1.4.5-lts.1",
+  
+    
+  "postcss": "^8.5.6",
+  
+    
+  "postcss-cli": "^11.0.1",
+  
+    
+  "tailwindcss": "^3.4.19"
+  
   },
+  
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dev-abuhurera/Scatch-Bag-Store.git"
+  
+    
+  "type": "git",
+  
+    
+  "url": "git+https://github.com/dev-abuhurera/Scatch-Bag-Store.git"
+  
   },
+  
   "homepage": "https://github.com/dev-abuhurera/Scatch-Bag-Store#readme",
+  
   "description": ""
-
 }
