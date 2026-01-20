@@ -8,9 +8,9 @@
     "start": "node app.js",
     "dev": "npx nodemon app.js",
     "build": "npm run build:css:prod",
-    "build:css": "tailwindcss -i ./input.css -o ./public/stylesheets/output.css",
-    "watch:css": "tailwindcss -i ./input.css -o ./public/stylesheets/output.css --watch",
-    "build:css:prod": "tailwindcss -i ./input.css -o ./public/stylesheets/output.css --minify"
+    "build:css": "tailwindcss -i ./style.css -o ./public/stylesheets/output.css",
+    "watch:css": "tailwindcss -i ./style.css -o ./public/stylesheets/output.css --watch",
+    "build:css:prod": "tailwindcss -i ./style.css -o ./public/stylesheets/output.css --minify"
 
   },
 
