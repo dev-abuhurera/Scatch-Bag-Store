@@ -7,3 +7,8 @@ config/local.json
 public/images/*.png
 public/images/*.jpg
 !public/images/.gitkeep
+*.log
+.DS_Store
+dist/
+build/
+.vscode/
