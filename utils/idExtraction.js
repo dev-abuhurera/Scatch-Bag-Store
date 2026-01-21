@@ -1,5 +1,5 @@
 function extractPublicId(imageUrl) {
-    
+
     if (!imageUrl || typeof imageUrl !== "string") return null;
 
     const cleanUrl = imageUrl.split("?")[0];
@@ -23,3 +23,4 @@ function extractPublicId(imageUrl) {
 }
 
 module.exports = extractPublicId;
+

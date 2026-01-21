@@ -9,9 +9,13 @@ const dbURI = process.env.MONGODB_URI;
 const connectDb = async () => {
     
     await mongoose.connect(`${dbURI}`, {
+
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        serverSelectionTimeoutMS: 30000
+        serverSelectionTimeoutMS: 50000,
+        ssl: true,
+        tls: true,
+        tlsAllowInvalidCertificates: false
         
     }).then(function(){
         dbgr("connected");
