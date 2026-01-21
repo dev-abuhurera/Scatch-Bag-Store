@@ -4,6 +4,7 @@ const upload = require("../config/multer-config");
 const productModel = require("../models/product-model");
 const isOwnerLoggedIn = require("../middlewares/isOwner");
 const cloudinary = require('../config/cloudinary-config');
+const imageId = require('../utils/idExtraction');
 
 router.post("/create",isOwnerLoggedIn,upload.single("image"),async (req, res) => {
 
@@ -13,6 +14,7 @@ router.post("/create",isOwnerLoggedIn,upload.single("image"),async (req, res) =>
       const { name, price, discount, bgcolor, panelcolor, textcolor } = req.body;
 
       let imageUrl = "";
+      
 
       if (req.file) {
         const uploadResult = await new Promise((resolve, reject) => {
@@ -47,8 +49,11 @@ router.post("/create",isOwnerLoggedIn,upload.single("image"),async (req, res) =>
         textcolor,
       });
 
+
+
       req.flash("success", "Product created successfully");
       return res.redirect("/owners/admin");
+
 
       } catch (err) {
 
@@ -80,9 +85,32 @@ router.post("/delete/:productId", isOwnerLoggedIn, async (req, res) => { // Prod
   try{
 
     const { productId } = req.params;
+
+    const product = productModel.findById(productId);
+
+    if(!product){
+      req.flash("error", "Product not found");
+      return res.redirect("/owners/admin");
+    }
+
     await productModel.findByIdAndDelete(productId); // ProductModel will find the id and delete the product of that id
 
-    
+    if(product.image){
+
+      try{
+      
+        const productId = imageId(product.image);
+
+        if(productId){
+          cloudinary.uploader.destroy(productId);
+        }
+      }catch(err){
+        
+        req.flash("error", "Failed to delete the image")
+
+      }
+
+    }
 
     req.flash("success", "Product deleted successfully");
     return res.redirect("/owners/admin");
