@@ -60,6 +60,7 @@ router.post("/create",isOwnerLoggedIn,upload.single("image"),async (req, res) =>
         // Thus now the image will automatically being destroyed by the cloudinary 
 
         if (uploadedPublicId) {
+
           try {
             await cloudinary.uploader.destroy(uploadedPublicId);
             console.log("Cleaned up uploaded image:", uploadedPublicId);
@@ -85,7 +86,7 @@ router.post("/delete/:productId", isOwnerLoggedIn, async (req, res) => { // Prod
 
     const { productId } = req.params;
 
-    const product = productModel.findById(productId);
+    const product = await productModel.findById(productId);
 
     if(!product){
       req.flash("error", "Product not found");
@@ -98,11 +99,11 @@ router.post("/delete/:productId", isOwnerLoggedIn, async (req, res) => { // Prod
 
       try{
       
-        const productId = imageId(product.image);
+        const publicId = imageId(product.image);
 
-        if(productId){
+        if(publicId){
 
-          cloudinary.uploader.destroy(productId);
+          await cloudinary.uploader.destroy(publicId);
 
         }
 
@@ -134,37 +135,37 @@ router.post("/deleteall", isOwnerLoggedIn, async (req, res) => { // delete all t
   try{
 
      // Get all products first to access their images
-    const products = await productModel.find({});
+    const products = await productModel.find({});// returns an array
 
-    if(!products){
+    if(products.length === 0){
 
       req.flash("error", "Products not found");
       return res.redirect("/owners/admin");
 
     }
 
-    await productModel.deleteMany({}); // removed all the products from here 
+    // we will loop through the array and will delete the product images
 
-    if(products.image){
+    for (const product of products) { // FIXED: loop through array
 
-      try{
+      if (product.image) {
 
-        const publicIds = imageId(products.image);
+        try {
 
-        if(publicIds){
+          const publicId = imageId(product.image);
 
-          await cloudinary.uploader.destroy(publicIds);
+          if (publicId) {
+            await cloudinary.uploader.destroy(publicId);
+          }
 
+        } catch (err) {
+          console.error("Failed to delete image:", err);
         }
-
-      } catch(err){
-
-        req.flash("error","Unable to delete")
-
       }
-
     }
 
+
+    await productModel.deleteMany({}); // removed all the products from here 
 
     req.flash("success", "All products deleted successfully");
     return es.redirect("/owners/admin");
