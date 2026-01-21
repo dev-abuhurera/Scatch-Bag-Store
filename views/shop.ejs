@@ -126,8 +126,8 @@
                                 
                                 <!-- Product Image -->
                                 <div class="w-full flex items-center justify-center h-24 md:h-52 p-3 md:p-5 flex-shrink-0 relative"
-                                style="background: linear-gradient(to right, <%= product.bgcolor.join(', ') %>)">
-                           
+                                style="background: linear-gradient(135deg, <%= product.bgcolor%>)">
+                                
                                <img class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300" 
                                     src="<%= product.image %>" 
                                     alt="<%= product.name %>">
@@ -135,7 +135,7 @@
                            
                            <!-- Product Info -->
                            <div class="flex justify-between items-center px-3 md:px-4 py-3 md:py-4 h-16 md:h-24 flex-shrink-0"
-                                style="background: linear-gradient(to right, <%= product.panelcolor.join(', ') %>); color: <%= product.textcolor[0] %>;">
+                                style="background: linear-gradient(135deg, <%= product.panelcolor%>); color: <%= product.textcolor %>;">
                                
                                <div class="min-w-0 flex-1 pr-2">
                                    <h3 class="text-xs md:text-base mb-1 truncate"><%= product.name %></h3>

@@ -47,17 +47,14 @@ router.post("/create",isOwnerLoggedIn,upload.single("image"),async (req, res) =>
       });
 
       req.flash("success", "Product created successfully");
-      res.redirect("/owners/admin");
+      return res.redirect("/owners/admin");
 
       } catch (err) {
 
-      console.error("PRODUCT CREATE ERROR:", err.message);
-      console.error(err.errors || err);
-      return res.status(500).json({
-        message: "Product creation failed",
-        error: err.message,
-        details: err.errors,
-      });
+        console.error("PRODUCT CREATE ERROR:", err.message);
+        console.error(err.errors || err);
+        req.flash('error', 'Error creating product: ' + err.message);
+        return res.redirect('/owners/admin'); 
 
     }
     
@@ -75,11 +72,11 @@ router.post("/delete/:productId", isOwnerLoggedIn, async (req, res) => { // Prod
     const { productId } = req.params;
     await productModel.findByIdAndDelete(productId); // ProductModel will find the id and delete the product of that id
     req.flash("success", "Product deleted successfully");
-    res.redirect("/owners/admin");
+    return res.redirect("/owners/admin");
 
   } catch (err){
     req.flash("error", "Failed to delete the product");
-    res.redirect("/owners/admin");
+    return res.redirect("/owners/admin");
 
   }}); 
 
@@ -92,12 +89,12 @@ router.post("/deleteall", isOwnerLoggedIn, async (req, res) => { // delete all t
 
     await productModel.deleteMany({});
     req.flash("success", "All products deleted successfully");
-    res.redirect("/owners/admin");
+    return es.redirect("/owners/admin");
 
   }catch (err){
 
     req.flash("error", "Failed to delete all products");
-    res.redirect("/owners/admin");
+    return res.redirect("/owners/admin");
 
   }
 
