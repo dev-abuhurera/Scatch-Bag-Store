@@ -53,7 +53,12 @@ router.get("/register", (req, res) => {
 
     let error = req.flash("error");
     let success = req.flash("success");
-    res.render("owner-register", {error, success});
+    res.render("owner-register", {
+        error, 
+        success,
+        isAdminPage:true,
+        loggedin: false
+    });
 
 })
 
@@ -99,7 +104,12 @@ router.get("/login", (req, res) => {
 
     let error = req.flash("error");
     let success = req.flash("success");
-    res.render("owner-login", {error, success});
+    res.render("owner-login", {
+        error, 
+        success,
+        isAdminPage:true,
+        loggedin: false
+    });
 
 })
 
@@ -124,7 +134,15 @@ router.get("/admin",isOwnerLoggedIn, async (req, res) => {
         let products = await productModel.find();
         let success = req.flash("success");
         let error = req.flash('error');
-        res.render("admin", {products, success, error});
+
+        res.render("admin", {
+            products, 
+            success, 
+            error,
+            isAdminPage:true,
+            loggedin: true,
+            isAdmin: true
+        });
 
     }catch(err){
 
@@ -140,7 +158,13 @@ router.get("/admin/create", isOwnerLoggedIn, (req, res) => {
     
     let success = req.flash("success");
     let error = req.flash("error");
-    res.render("createproducts", {success, error});
+    res.render("createproducts", {
+        success, 
+        error,
+        isAdminPage:true,
+        loggedin: true,
+        isAdmin: true
+    });
 
 });
 

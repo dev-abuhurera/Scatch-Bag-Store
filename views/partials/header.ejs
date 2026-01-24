@@ -25,6 +25,7 @@
         <% var isHomePage = typeof isHomePage !== 'undefined' ? isHomePage : false %>
         <% var loggedin = typeof loggedin !== 'undefined' ? loggedin : true %>
         <% var isAdmin = typeof isAdmin !== 'undefined' ? isAdmin : false %>
+        <% var isAdminPage = typeof isAdminPage !== 'undefined' ? isAdminPage : false %>
 
         <% if(isHomePage && !loggedin){ %>
             <a href="/owners/login" 
@@ -34,7 +35,7 @@
             </a>
         <% } %>
 
-        <% if(loggedin) {%>
+        <% if(loggedin && !isAdminPage) {%>
 
             <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2 z-50">
                 <span class="w-6 h-0.5 bg-black transition-all"></span>
