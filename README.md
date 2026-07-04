@@ -1,5 +1,5 @@
 # Bag Brand - E-Commerce Platform
-<img width="1316" height="773" alt="image" src="https://github.com/user-attachments/assets/4f6a1552-e2cf-4028-b398-14ea60aacef5" />
+<img width="1906" height="924" alt="image" src="https://github.com/user-attachments/assets/55db7849-1d06-4392-b785-685319795667" />
 
 
 A full-stack e-commerce application built with a focus on backend architecture, authentication, and role-based access control. This project serves as a comprehensive learning resource for scalable web development best practices.
